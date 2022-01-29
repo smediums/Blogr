@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, createContext } from "react";
+import { Hero, Main, Footer, Header, Nav } from "./components";
+import GlobalStyles from "./globalStyles";
+import "./App.css";
+
+export const LinksContext = createContext();
 
 function App() {
+  const [showNav, setShowNav] = useState(false);
+  const linkLists = [
+    ["Overview", "Pricing", "Marketplace", "Feature", "Integration"],
+    ["About", "Team", "Blog", "Careers"],
+    ["Contact", "Newsletter", "LinkedIn"],
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <LinksContext.Provider value={linkLists}>
+      <div className="App">
+        <GlobalStyles />
+        <Header showNav={showNav} setShowNav={setShowNav} />
+        <Nav showNav={showNav} setShowNav={setShowNav} />
+        <Hero />
+        <Main />
+        <Footer />
+      </div>
+    </LinksContext.Provider>
   );
 }
 
